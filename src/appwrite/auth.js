@@ -1,7 +1,7 @@
 import conf from "../conf/conf.js";
 import { Client, Account, ID } from "appwrite";
 
-export class AuthService {
+class AuthService {
   client = new Client();
   account;
 
@@ -22,7 +22,7 @@ export class AuthService {
         name
       );
 
-      return this.login(email, password);
+      return this.login({ email, password });
     } catch (error) {
       console.error("Create account error:", error);
       throw error;
@@ -40,10 +40,10 @@ export class AuthService {
 
   async getCurrentUser() {
     try {
-      await this.account.get();
+      return await this.account.get();
     } catch (error) {
       console.error("error getting current user", error);
-      throw error;
+      // throw error;
     }
     return null;
   }
